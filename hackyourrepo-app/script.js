@@ -46,8 +46,7 @@ function main() {
   footer.appendChild(footerInfo);
   footerInfo.innerText = 'HYF Repositories';
 
-  //SOMETHING WILL BE HAPPENING FROM HERE ONE
-
+  //fetch data from github api
   function fetchData() {
     const apiURL =
       'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
@@ -59,36 +58,73 @@ function main() {
           throw 'Need to put in an error';
         }
       })
+      //names of repositories for the select menu
       .then((data) => {
         const repoNames = data.map((name) => name.name);
         addSelectOptions(repoNames);
-        console.log(repoNames); //will need to send this to a function
         return data;
+      })
+
+      //object to be used for getting data to populate table with
+      .then((data) => {
+        const repoInfo = data.map((info) => {
+          return {
+            Repository: info.name,
+            Description: info.description,
+            Forks: info.forks,
+            Updated: info.updated_at.replace(/[ tz]/gi, ' '),
+            URL: info.svn_url,
+          };
+        });
+        console.log(repoInfo);
+        // addRepoInfo(repoInfo);
+        // return data;
       });
   }
   fetchData();
 
+  //addding select options
   function addSelectOptions(repoNames) {
-    repoNames.forEach((title) => {
-      const selectOptions = document.createElement('option');
-      selectMenu.appendChild(selectOptions);
-      selectOptions.innerText = title;
-    });
+    repoNames
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((title) => {
+        const selectOptions = document.createElement('option');
+        selectMenu.appendChild(selectOptions);
+        selectOptions.innerText = title;
+      });
   }
 
-  //Loop through array and add it values to the table
+  //creating a table and putting repositories info inside it
+  // function addRepoInfo(repoInfo) {
+  //   //skeleton of the table
+  //   const tableRow = document.createElement('tr');
+  //   const tableHeader = document.createElement('thead');
+  //   const tableData = document.createElement('td');
+  //   //appending the elements
+  //   table.appendChild(tableRow);
+  //   tableRow.appendChild(tableHeader);
+  //   tableRow.appendChild(tableData);
+  //   for (const values of repoInfo)
+  //     if (selectMenu.value === values.Name) {
+  //       //adding information to the table
+  //       repoInfo.forEach((infoTable) => {
+  //         tableHeader.innerText = Object.keys(infoTable);
+  //         tableData.innerText = Object.values(infoTable);
+  //       });
+  //     }
+  // }
+
+
+
+  // //Loop through array and add it values to the table
   // function updateInfo() {
   //   for (const property of placeholderRepos)
-  //     if (selectMenu.value === property.name) {
+  //     if (selectRepos.value === property.name) {
   //       repoName.innerText = property.name;
   //       repoDescription.innerText = property.description;
   //       repoForks.innerText = property.forks;
   //       repoUpdates.innerText = property.updated;
   //     }
-  // }
-
-  // updateInfo();
-  // selectRepos.addEventListener('change', updateInfo);
 }
 
 main();
@@ -99,15 +135,4 @@ main();
 // const repoForks = document.getElementById('repo-forks');
 // const repoUpdates = document.getElementById('repo-updates');
 // //will be needed for later
-// const contributors = document.getElementById('contributors');
-
-//Sort alphabetically:
-// function sortAlphabetically(array) {
-//   array.sort((a, b) => {
-//     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-//     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-//     return 0;
-//   });
-//   return array;
-// }
-// sortAlphabetically(placeholderRepos);
+// const contributors = document.getElementById('contributors')
