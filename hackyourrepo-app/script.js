@@ -21,8 +21,10 @@ function main() {
   //recreating the MAIN area
   const main = document.createElement('main');
   const secondSection = document.createElement('section');
+  secondSection.className = 'rep-info';
   const table = document.createElement('table');
   const thirdSection = document.createElement('section');
+  thirdSection.className = 'contributors';
   const contributorsTitle = document.createElement('p');
 
   //appending elements to the MAIN section
@@ -55,28 +57,21 @@ function main() {
         if (response.ok) {
           return response.json();
         } else {
-          throw 'Need to put in an error';
+          throw 'An error has occured.';
         }
       })
-      //names of repositories for the select menu
-      .then((data) => {
-        const repoNames = data.map((name) => name.name);
-        addSelectOptions(repoNames);
-        return data;
-      })
-
-      //object to be used for getting data to populate table with
+      //object to be used for selection menu and the table
       .then((data) => {
         const repoInfo = data.map((info) => {
           return {
-            Repository: info.name,
-            Description: info.description,
-            Forks: info.forks,
-            Updated: info.updated_at.replace(/[ tz]/gi, ' '),
+            repository: info.name,
+            description: info.description,
+            forks: info.forks,
+            updated: info.updated_at.replace(/[ tz]/gi, ' '),
             URL: info.svn_url,
           };
         });
-        console.log(repoInfo);
+        addSelectOptions(repoInfo);
         // addRepoInfo(repoInfo);
         // return data;
       });
@@ -84,55 +79,46 @@ function main() {
   fetchData();
 
   //addding select options
-  function addSelectOptions(repoNames) {
-    repoNames
-      .sort((a, b) => a.localeCompare(b))
+  function addSelectOptions(repoInfo) {
+    repoInfo
+      .sort((a, b) => a.repository.localeCompare(b.repository))
       .forEach((title) => {
         const selectOptions = document.createElement('option');
         selectMenu.appendChild(selectOptions);
-        selectOptions.innerText = title;
+        selectOptions.innerText = title.repository;
       });
+      addRepoInfo(repoInfo);
   }
+  // creating a table and putting repositories info inside it
 
-  //creating a table and putting repositories info inside it
-  // function addRepoInfo(repoInfo) {
-  //   //skeleton of the table
-  //   const tableRow = document.createElement('tr');
-  //   const tableHeader = document.createElement('thead');
-  //   const tableData = document.createElement('td');
-  //   //appending the elements
-  //   table.appendChild(tableRow);
-  //   tableRow.appendChild(tableHeader);
-  //   tableRow.appendChild(tableData);
-  //   for (const values of repoInfo)
-  //     if (selectMenu.value === values.Name) {
-  //       //adding information to the table
-  //       repoInfo.forEach((infoTable) => {
-  //         tableHeader.innerText = Object.keys(infoTable);
-  //         tableData.innerText = Object.values(infoTable);
-  //       });
-  //     }
-  // }
-
-
-
-  // //Loop through array and add it values to the table
-  // function updateInfo() {
-  //   for (const property of placeholderRepos)
-  //     if (selectRepos.value === property.name) {
-  //       repoName.innerText = property.name;
-  //       repoDescription.innerText = property.description;
-  //       repoForks.innerText = property.forks;
-  //       repoUpdates.innerText = property.updated;
-  //     }
-}
+  function addRepoInfo(repoInfo) {
+    selectMenu.addEventListener('click', (e) => {
+      for (const property of repoInfo) {
+        console.log(e.target.value);
+        console.log(selectMenu.value);
+          if (e.target.value === selectMenu.value) {
+            table.innerHTML = `
+            <tr>
+            <th>Repository :</th>
+            <td><a href="${property.URL}" target="_blank" >${property.repository}</a></td>
+            </tr>
+            <tr>
+            <th>Description :</th>
+            <td>${property.description}</td>
+            </tr>
+            <tr>
+            <th>Forks :</th>
+            <td>${property.forks}</td>
+            </tr>
+            <tr>
+            <th>Updated :</th>
+            <td>${property.updated}</td>
+            </tr>
+            `;
+          }
+      }
+    });
+  }
+} // <--end of main function
 
 main();
-
-// const selectRepos = document.getElementById('repositories');
-// const repoName = document.getElementById('repo-name');
-// const repoDescription = document.getElementById('repo-description');
-// const repoForks = document.getElementById('repo-forks');
-// const repoUpdates = document.getElementById('repo-updates');
-// //will be needed for later
-// const contributors = document.getElementById('contributors')
