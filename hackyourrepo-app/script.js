@@ -88,6 +88,7 @@ function main() {
   }
 
   // creating a table and putting repositories info inside it
+  //I would love to make it that once page loads, we already have filled table with info from first repo(alumni) but everytime I try to call the function, I get errors
   function addRepoInfo(repoInfo) {
     selectMenu.addEventListener('click', () => {
       for (const property of repoInfo) {
@@ -101,7 +102,11 @@ function main() {
             </tr>
             <tr>
             <th>Description :</th>
-            <td>${property.description === null ? (property.description = '') : property.description}</td>
+            <td>${
+              property.description === null
+                ? (property.description = '')
+                : property.description
+            }</td>
             </tr>
             <tr>
             <th>Forks :</th>
