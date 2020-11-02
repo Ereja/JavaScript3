@@ -9,8 +9,9 @@ body {
   background-color: #111211;
   height: 100vh;
   max-width: 100vw;
+  color: #fff;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -74,6 +75,39 @@ tr:nth-of-type(odd) {
   background-color: #262726;
 }
 
+img {
+  width: 75px;
+}
+
+a:link {
+  color: rgb(165, 151, 151);
+}
+
+a:visited {
+  color: #5e695e;
+}
+
+.contributors-container {
+  background-color: #262726;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1.2rem;
+  border: 3px solid rgba(206, 188, 188, 0.322);
+}
+
+.contributors-container p {
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.contributors-container span {
+  border: 3px solid rgba(206, 188, 188, 0.322);
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: #200b0a;
+  margin-left: auto;
+}
 /*add media queries*/
 
 @media (min-width: 320px) and (max-width: 1024px) {
