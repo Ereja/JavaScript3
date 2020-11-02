@@ -31,8 +31,10 @@ function main() {
         }
       })
       .then((allpokemon) => {
+        console.log(allpokemon);
         allpokemon.results.forEach((pokemon) => {
           fetchPokemonData(pokemon);
+          console.log(pokemon);
         });
       })
       .catch((error) => console.log(error));
@@ -40,8 +42,8 @@ function main() {
   fetchData();
 
   function fetchPokemonData(pokemon) {
-    //have no idea why url is wrapped as object :(
     const { url } = pokemon;
+
     fetch(url)
       .then((response) => response.json())
       .then((pokeData) => {
@@ -56,13 +58,11 @@ function main() {
     selectOption.value = pokeData.sprites.front_default;
 
     //appending options to appear only after button has been clicked
-    button.addEventListener('click', function () {
-      select.appendChild(selectOption);
-    });
+    button.addEventListener('click', () => select.appendChild(selectOption));
   }
 
   //appending images to the dom, once selection has been made
-  select.addEventListener('change', function () {
+  select.addEventListener('change', () => {
     body.appendChild(image);
     image.src = select.value;
   });
