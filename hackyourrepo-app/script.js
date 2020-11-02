@@ -25,6 +25,7 @@ function main() {
   const table = document.createElement('table');
   const thirdSection = document.createElement('section');
   thirdSection.className = 'contributors';
+  const divForContr = document.createElement('div');
   const contributorsTitle = document.createElement('p');
 
   //appending elements to the MAIN section
@@ -33,11 +34,12 @@ function main() {
   secondSection.appendChild(table);
   main.appendChild(thirdSection);
   thirdSection.appendChild(contributorsTitle);
+  thirdSection.appendChild(divForContr);
 
   //adding classes and text
   secondSection.className = 'rep-info';
   thirdSection.className = 'contributors';
-  contributorsTitle.innerText = 'Contributors';
+  contributorsTitle.innerHTML = 'Contributors';
 
   //appending elements to the FOOTER section
   const footer = document.createElement('footer');
@@ -49,7 +51,7 @@ function main() {
   footerInfo.innerText = 'HYF Repositories';
 
   //fetch data from github api
-  function fetchData() {
+  function fetchRepoInfo() {
     const apiURL =
       'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
     fetch(apiURL)
@@ -61,50 +63,45 @@ function main() {
         }
       })
       //object to be used for selection menu and the table
-      .then((data) => {
-        const repoInfo = data.map((info) => {
-          return {
-            repository: info.name,
-            description: info.description,
-            forks: info.forks,
-            updated: info.updated_at.replace(/[ tz]/gi, ' '),
-            URL: info.svn_url,
-          };
-        });
+      .then((repoInfo) => {
         addSelectOptions(repoInfo);
-        // addRepoInfo(repoInfo);
-        // return data;
+      })
+      .catch((error) => {
+        contributorsTitle.innerText = '';
+        const errorDiv = document.createElement('div');
+        secondSection.appendChild(errorDiv);
+        errorDiv.innerHTML = error;
       });
   }
-  fetchData();
+  fetchRepoInfo();
 
   //addding select options
   function addSelectOptions(repoInfo) {
     repoInfo
-      .sort((a, b) => a.repository.localeCompare(b.repository))
+      .sort((a, b) => a.name.localeCompare(b.name))
       .forEach((title) => {
         const selectOptions = document.createElement('option');
         selectMenu.appendChild(selectOptions);
-        selectOptions.innerText = title.repository;
+        selectOptions.innerText = title.name;
       });
-      addRepoInfo(repoInfo);
+    addRepoInfo(repoInfo);
   }
-  // creating a table and putting repositories info inside it
 
+  // creating a table and putting repositories info inside it
   function addRepoInfo(repoInfo) {
-    selectMenu.addEventListener('click', (e) => {
+    selectMenu.addEventListener('click', () => {
       for (const property of repoInfo) {
-        console.log(e.target.value);
-        console.log(selectMenu.value);
-          if (e.target.value === selectMenu.value) {
-            table.innerHTML = `
+        if (property.name === selectMenu.value) {
+          table.innerHTML = `
             <tr>
             <th>Repository :</th>
-            <td><a href="${property.URL}" target="_blank" >${property.repository}</a></td>
+            <td><a href="${property.svn_url}" target="_blank" >${
+            property.name
+          }</a></td>
             </tr>
             <tr>
             <th>Description :</th>
-            <td>${property.description}</td>
+            <td>${property.description === null ? (property.description = '') : property.description}</td>
             </tr>
             <tr>
             <th>Forks :</th>
@@ -112,13 +109,49 @@ function main() {
             </tr>
             <tr>
             <th>Updated :</th>
-            <td>${property.updated}</td>
+            <td>${property.updated_at.replace(/[ tz]/gi, ' ')}</td>
             </tr>
             `;
-          }
+        }
       }
+      const option = selectMenu.value;
+      fetch(
+        `https://api.github.com/repos/HackYourFuture/${option}/contributors`,
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((contributorsData) => {
+          //making sure that with each click on select menu, new contributors being generated and not stacked on top of each other
+          divForContr.innerHTML = '';
+          contributorsData.forEach((contributor) => {
+            console.log(contributor);
+            //creating the elements for each contributor
+            const div = document.createElement('div');
+            const link = document.createElement('a');
+            const image = document.createElement('img');
+            const text = document.createElement('p');
+            const span = document.createElement('span');
+            //appending the elements
+            div.className = 'contributors-container';
+            divForContr.appendChild(div);
+            div.appendChild(image);
+            div.appendChild(text);
+            div.appendChild(span);
+            text.appendChild(link);
+
+            image.src = contributor.avatar_url;
+            image.alt = contributor.login;
+            link.innerText = contributor.login;
+            link.href = contributor.html_url;
+            span.innerText = contributor.contributions;
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
   }
 } // <--end of main function
 
-main();
+window.addEventListener('load', main);
