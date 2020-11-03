@@ -42,14 +42,14 @@ function sortAlphabetically(array) {
 sortAlphabetically(placeholderRepos);
 
 //Creating options for the select menu:
-function addSelectOptions() {
+function addSelectOption() {
   for (const repo of placeholderRepos) {
-    const selectOptions = document.createElement('option');
-    selectRepos.appendChild(selectOptions);
-    selectOptions.innerText = repo.name;
+    const selectOption = document.createElement('option');
+    selectRepos.appendChild(selectOption);
+    selectOption.innerText = repo.name;
   }
 }
-addSelectOptions();
+addSelectOption();
 
 //Loop through array and add it values to the table
 function updateInfo() {
