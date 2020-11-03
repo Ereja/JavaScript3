@@ -55,7 +55,7 @@ function main() {
     const apiURL =
       'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
     fetch(apiURL)
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           return response.json();
         } else {
@@ -63,10 +63,10 @@ function main() {
         }
       })
       //object to be used for selection menu and the table
-      .then((repoInfo) => {
+      .then(repoInfo => {
         addSelectOptions(repoInfo);
       })
-      .catch((error) => {
+      .catch(error => {
         contributorsTitle.innerText = '';
         const errorDiv = document.createElement('div');
         secondSection.appendChild(errorDiv);
@@ -79,16 +79,16 @@ function main() {
   function addSelectOptions(repoInfo) {
     repoInfo
       .sort((a, b) => a.name.localeCompare(b.name))
-      .forEach((title) => {
-        const selectOptions = document.createElement('option');
-        selectMenu.appendChild(selectOptions);
-        selectOptions.innerText = title.name;
+      .forEach(title => {
+        const selectOption = document.createElement('option');
+        selectMenu.appendChild(selectOption);
+        selectOption.innerText = title.name;
       });
     addRepoInfo(repoInfo);
   }
 
   // creating a table and putting repositories info inside it
-  //I would love to make it that once page loads, we already have filled table with info from first repo(alumni) but everytime I try to call the function, I get errors
+  //I would love to make it that once page loads, we already see filled table with info from first repo(alumni) but everytime I try to call the function, I get errors
   function addRepoInfo(repoInfo) {
     selectMenu.addEventListener('click', () => {
       for (const property of repoInfo) {
@@ -123,14 +123,13 @@ function main() {
       fetch(
         `https://api.github.com/repos/HackYourFuture/${option}/contributors`,
       )
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((contributorsData) => {
+        .then(contributorsData => {
           //making sure that with each click on select menu, new contributors being generated and not stacked on top of each other
           divForContr.innerHTML = '';
-          contributorsData.forEach((contributor) => {
-            console.log(contributor);
+          contributorsData.forEach(contributor => {
             //creating the elements for each contributor
             const div = document.createElement('div');
             const link = document.createElement('a');
@@ -152,7 +151,7 @@ function main() {
             span.innerText = contributor.contributions;
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     });
@@ -160,3 +159,5 @@ function main() {
 } // <--end of main function
 
 window.addEventListener('load', main);
+
+//would it be possible to use Promise.all to chain both fetches and catch error once, instead having to catch it twice?
