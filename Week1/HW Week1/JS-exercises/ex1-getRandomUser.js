@@ -16,14 +16,14 @@ function getRandomUserXML() {
   xhr.responseType = 'json';
   xhr.open('GET', url);
 
-  xhr.onload = function () {
-    if (xhr.status === 200 && xhr.readyState === 4) {
+  xhr.onload = () => {
+    if (xhr.status < 400) {
       console.log(xhr.response);
     } else {
       console.log('Error:', xhr.status);
     }
   };
-  xhr.onerror = function () {
+  xhr.onerror = () => {
     console.log('Something went wrong');
   };
   xhr.send();
@@ -35,7 +35,7 @@ getRandomUserXML();
 function getRandomUserAxios() {
   axios
     .get(url)
-    .then((response) => console.log(response.data))
-    .catch((err) => console.log(err));
+    .then(response => console.log(response.data))
+    .catch(err => console.log(err));
 }
 getRandomUserAxios();

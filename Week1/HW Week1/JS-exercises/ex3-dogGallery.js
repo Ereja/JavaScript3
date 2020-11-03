@@ -22,7 +22,7 @@ function getDogPicXML() {
   xhr.responseType = 'json';
   xhr.open('GET', url);
 
-  xhr.onload = function () {
+  xhr.onload = () => {
     if (xhr.status < 400) {
       const list = document.createElement('li');
       galleryList.appendChild(list);
@@ -34,7 +34,7 @@ function getDogPicXML() {
     }
   };
 
-  xhr.onerror = function () {
+  xhr.onerror = () => {
     console.log('Something went wrong');
   };
   xhr.send();
@@ -48,14 +48,14 @@ In all three excersises used different conditions to check xhr status, as there 
 function getDogPicAxios() {
   axios
     .get(url)
-    .then((response) => {
+    .then(response => {
       const list = document.createElement('li');
       galleryList.appendChild(list);
       const dogImg = document.createElement('img');
       list.appendChild(dogImg);
       dogImg.src = response.data.message;
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 }
 
 //Event listeners:

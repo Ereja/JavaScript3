@@ -18,7 +18,7 @@ function getComicXML() {
   xhr.open('GET', url);
 
   xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status < 400) {
       console.log(xhr.response);
       const image = document.createElement('img');
       body.appendChild(image);
@@ -29,7 +29,7 @@ function getComicXML() {
     }
   };
 
-  xhr.onerror = function () {
+  xhr.onerror = () => {
     console.log('Something went wrong');
   };
   xhr.send();
@@ -40,13 +40,13 @@ getComicXML();
 function getComicAxios() {
   axios
     .get(url)
-    .then((response) => {
+    .then(response => {
       const newImage = document.createElement('img');
       body.appendChild(newImage);
       console.log(response.data);
       newImage.src = response.data.img;
-      newImage.alt = response.alt;
+      newImage.alt = response.data.alt;
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 }
 getComicAxios();
