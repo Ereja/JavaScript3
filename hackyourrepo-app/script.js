@@ -59,7 +59,7 @@ function main() {
         if (response.ok) {
           return response.json();
         } else {
-          throw 'An error has occured.';
+          throw new Error('Network request failed');
         }
       })
       //object to be used for selection menu and the table
