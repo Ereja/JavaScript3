@@ -23,21 +23,21 @@ function main() {
 
   function fetchData() {
     fetch(apiUrl)
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           return response.json();
         } else {
-          throw Error('You caught an Error!');
+          throw new Error('You caught an Error!');
         }
       })
-      .then((allpokemon) => {
+      .then(allpokemon => {
         console.log(allpokemon);
-        allpokemon.results.forEach((pokemon) => {
+        allpokemon.results.forEach(pokemon => {
           fetchPokemonData(pokemon);
           console.log(pokemon);
         });
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }
   fetchData();
 
@@ -45,8 +45,8 @@ function main() {
     const { url } = pokemon;
 
     fetch(url)
-      .then((response) => response.json())
-      .then((pokeData) => {
+      .then(response => response.json())
+      .then(pokeData => {
         addPokemonToDOM(pokeData);
       });
   }
