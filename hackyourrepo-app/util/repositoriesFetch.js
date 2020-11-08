@@ -1,14 +1,9 @@
-export function fetchData(url) {
-  return fetch(url)
-  .then(response => {
-    if(response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Network request failed');
-    }
-  })
-  .catch(error => {
+export async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
     body.innerHTML = error;
-  })
+  }
 }
-
