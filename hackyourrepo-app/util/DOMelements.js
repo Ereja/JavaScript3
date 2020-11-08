@@ -1,3 +1,5 @@
+//This function creates the base layout of webpage. For extra readability removed all createElements/appendChild and changed it to use template literals instead, as this provides extra readability plus code like this is much shorter
+
 export function createDOMElements() {
   const body = document.body;
   body.id = 'body';
@@ -30,4 +32,3 @@ export function createDOMElements() {
   </footer>
   `;
 }
-

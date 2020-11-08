@@ -1,8 +1,11 @@
 import { fetchData } from './repositoriesFetch.js';
 
+//Using fetch function, to get names of every repo and create options in a dropdown menu
+
 export function addSelectOptions() {
-  fetchData('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
-  .then(repoInfo => {
+  fetchData(
+    'https://api.github.com/orgs/HackYourFuture/repos?per_page=100',
+  ).then(repoInfo => {
     repoInfo
       .sort((a, b) => a.name.localeCompare(b.name))
       .forEach(title => {
@@ -10,5 +13,5 @@ export function addSelectOptions() {
         select.appendChild(selectOption);
         selectOption.innerText = title.name;
       });
-  })
+  });
 }

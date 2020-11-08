@@ -1,18 +1,18 @@
 import { fetchData } from './repositoriesFetch.js';
 
+//After fetching data, this function will create a table to store the information about the selected repository
 export function addRepoInfo() {
-  select.addEventListener('change', () => {
-    fetchData(
-      'https://api.github.com/orgs/HackYourFuture/repos?per_page=100',
-    ).then(repoInfo => {
-      for (const property of repoInfo) {
-        if (property.name === select.value) {
-          table.innerHTML = `
+  fetchData(
+    'https://api.github.com/orgs/HackYourFuture/repos?per_page=100',
+  ).then(repoInfo => {
+    for (const property of repoInfo) {
+      if (property.name === select.value) {
+        table.innerHTML = `
             <tr>
             <th>Repository :</th>
             <td><a href="${property.svn_url}" target="_blank" >${
-            property.name
-          }</a></td>
+          property.name
+        }</a></td>
             </tr>
             <tr>
             <th>Description :</th>
@@ -32,8 +32,7 @@ export function addRepoInfo() {
             <td>${property.updated_at.replace(/[ tz]/gi, ' ')}</td>
             </tr>
             `;
-        }
       }
-    });
+    }
   });
 }
