@@ -1,0 +1,33 @@
+export function createDOMElements() {
+  const body = document.body;
+  body.id = 'body';
+  body.innerHTML = `
+  <header>
+  <section>
+  <h1>HYF Repositories</h1>
+  <select id="select"></select>
+  </section>
+  </header>
+
+
+  <main>
+  <section id="repositoriesInfo" class="rep-info">
+  <h2>Repositories Information:</h2>
+  <table id="table">
+  </table>
+  </section>
+
+  <section class="contributors">
+  <h2>Contributors:</h2>
+  <div id="divForContr">
+  </div>
+  </section>
+  </main>
+
+
+  <footer>
+  <p>HYF Repositories 2020</p>
+  </footer>
+  `;
+}
+
