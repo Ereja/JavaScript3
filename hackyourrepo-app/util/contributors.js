@@ -1,7 +1,8 @@
 import { fetchData } from './repositoriesFetch.js';
+import { appendPagButton } from './appendPaginationButton.js';
 
-//This function uses fetchData in order to create layout for each contributor
-export function fetchContributors(query, rows_per_page, page) {
+//This function uses fetchData in order to create layout for each contributor and does not show more than 5 contributors per page
+export function fetchContributors(query, rowsPerPage, page) {
   fetchData(
     `https://api.github.com/repos/HackYourFuture/${query}/contributors`,
   ).then(contributorsData => {
@@ -9,8 +10,8 @@ export function fetchContributors(query, rows_per_page, page) {
     divForContr.innerHTML = '';
     page--;
 
-    let start = rows_per_page * page;
-    let end = start + rows_per_page;
+    let start = rowsPerPage * page;
+    let end = start + rowsPerPage;
     let paginatedContributors = contributorsData.slice(start, end);
 
     paginatedContributors.forEach(contributor => {
@@ -18,11 +19,12 @@ export function fetchContributors(query, rows_per_page, page) {
       <div class="contributors-container">
       <img src="${contributor.avatar_url}" alt="${contributor.login}">
       <p>
-      <a href="${contributor.html_url}" target_blank>${contributor.login}</a>
+      <a href="${contributor.html_url}" target = _blank>${contributor.login}</a>
       </p>
       <span>${contributor.contributions}</span>
       </div>
       `;
     });
+    appendPagButton(contributorsData, rowsPerPage);
   });
 }

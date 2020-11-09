@@ -23,6 +23,7 @@ export function createDOMElements() {
   <h2>Contributors:</h2>
   <div id="divForContr">
   </div>
+  <div id="paginationNumb" class="pageButton"></div>
   </section>
   </main>
 
