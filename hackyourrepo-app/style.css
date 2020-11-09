@@ -21,7 +21,8 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-main {
+main,
+.pageButton {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -32,12 +33,14 @@ main {
 header,
 footer,
 tr:nth-of-type(odd),
-.contributors-container {
+.contributors-container,
+button:hover {
   background-color: #262726;
 }
 
 .contributors-container,
-.contributors-container span {
+.contributors-container span,
+button {
   border: 3px solid rgba(206, 188, 188, 0.322);
 }
 
@@ -57,6 +60,7 @@ select {
   font-size: 1.2rem;
   margin: 0.5rem;
   color: #fff;
+  cursor: pointer;
 }
 
 .rep-info,
@@ -116,6 +120,23 @@ a:visited {
   background-color: #200b0a;
   margin-left: auto;
 }
+
+/* styles for the pagination buttons */
+
+button {
+  cursor: pointer;
+  margin-right: 1rem;
+  height: 50px;
+  width: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+button:hover {
+  transform: scale(1.5);
+  transition: 0.5s ease-in-out;
+}
+
 /*add media queries*/
 
 @media (min-width: 320px) and (max-width: 1024px) {
