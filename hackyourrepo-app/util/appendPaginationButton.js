@@ -1,5 +1,6 @@
 import { paginationButton } from './paginationButtons.js';
 
+//appends pagination buttons to the page, creates needed amount of buttons(1 button is created per 5)
 export function appendPagButton(items, rowsPerPage) {
   paginationNumb.innerHTML = '';
   let pageCount = Math.ceil(items.length / rowsPerPage);

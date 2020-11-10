@@ -1,4 +1,4 @@
-import { fetchData } from './repositoriesFetch.js';
+import { fetchData } from './fetchData.js';
 
 //After fetching data, this function will create a table to store the information about the selected repository
 export function addRepoInfo() {

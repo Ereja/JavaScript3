@@ -1,4 +1,4 @@
-import { fetchData } from './repositoriesFetch.js';
+import { fetchData } from './fetchData.js';
 
 //Using fetch function, to get names of every repo and create options in a dropdown menu
 

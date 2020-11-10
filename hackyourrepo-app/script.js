@@ -1,7 +1,7 @@
 import { createDOMElements } from './util/DOMelements.js';
 import { addSelectOptions } from './util/populateSelectMenu.js';
-import { addRepoInfo } from './util/repositories.js';
-import { fetchContributors } from './util/contributors.js';
+import { addRepoInfo } from './util/displayRepositoriesInfo.js';
+import { fetchContributors } from './util/fetchContributors.js';
 
 //Variables for pagination
 //page we are on

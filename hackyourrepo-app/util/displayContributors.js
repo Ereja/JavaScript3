@@ -1,15 +1,7 @@
-import { fetchData } from './repositoriesFetch.js';
 import { appendPagButton } from './appendPaginationButton.js';
 
 
-export function fetchContributors(query, rowsPerPage, page) {
-  console.log(query);
-  fetchData(`https://api.github.com/repos/HackYourFuture/${query}/contributors`)
-    .then(contributorsData =>
-      displayContributors(contributorsData, rowsPerPage, page),
-    )
-    .catch(error => console.error(error));
-}
+//displays 5 contributors per page
 
 export function displayContributors(contributorsData, rowsPerPage, page) {
   const divForContr = document.getElementById('divForContr');
@@ -32,6 +24,5 @@ export function displayContributors(contributorsData, rowsPerPage, page) {
       </div>
       `;
   });
-  console.log(contributorsData);
   appendPagButton(contributorsData, rowsPerPage);
 }
