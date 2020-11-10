@@ -1,5 +1,4 @@
 import { createDOMElements } from './util/DOMelements.js';
-import { fetchData } from './util/repositoriesFetch.js';
 import { addSelectOptions } from './util/populateSelectMenu.js';
 import { addRepoInfo } from './util/repositories.js';
 import { fetchContributors } from './util/contributors.js';

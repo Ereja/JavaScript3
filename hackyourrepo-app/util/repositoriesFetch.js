@@ -10,6 +10,7 @@ export async function fetchData(url) {
     throw new Error('Network request failed.');
   }
   } catch (error) {
+    console.log(error);
     body.innerHTML = error;
   }
 }

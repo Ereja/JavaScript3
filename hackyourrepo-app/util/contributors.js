@@ -1,16 +1,18 @@
 import { fetchData } from './repositoriesFetch.js';
 import { appendPagButton } from './appendPaginationButton.js';
 
+
 export function fetchContributors(query, rowsPerPage, page) {
   console.log(query);
-  fetchData(
-    `https://api.github.com/repos/HackYourFuture/${query}/contributors`,
-  ).then(contributorsData =>
-    displayContributors(contributorsData, rowsPerPage, page),
-  );
+  fetchData(`https://api.github.com/repos/HackYourFuture/${query}/contributors`)
+    .then(contributorsData =>
+      displayContributors(contributorsData, rowsPerPage, page),
+    )
+    .catch(error => console.error(error));
 }
 
 export function displayContributors(contributorsData, rowsPerPage, page) {
+  const divForContr = document.getElementById('divForContr');
   //making sure that with each click on select menu, new contributors being generated and not stacked on top of each other
   divForContr.innerHTML = '';
   page--;
