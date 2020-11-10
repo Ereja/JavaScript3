@@ -1,4 +1,5 @@
 import { fetchContributors } from './contributors.js';
+import { displayContributors } from './contributors.js';
 import { currentPage, rows} from '../script.js';
 
 export function paginationButton(page, items) {
@@ -11,7 +12,7 @@ export function paginationButton(page, items) {
 
   button.addEventListener('click', () => {
     pageNumber = page;
-    fetchContributors(items, rows, currentPage);
+    displayContributors(items, rows, currentPage);
     let current_btn = document.querySelector('.pageButton button.active');
     current_btn.classList.remove('active');
     button.classList.add('active');
