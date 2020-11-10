@@ -7,7 +7,7 @@ export async function fetchData(url) {
     const data = await response.json();
     return data;
   } else {
-    throw new Error('Network rquest failed.');
+    throw new Error('Network request failed.');
   }
   } catch (error) {
     body.innerHTML = error;
