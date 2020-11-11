@@ -31,10 +31,8 @@ function main() {
         }
       })
       .then(allpokemon => {
-        console.log(allpokemon);
         allpokemon.results.forEach(pokemon => {
           fetchPokemonData(pokemon);
-          console.log(pokemon);
         });
       })
       .catch(error => console.log(error));
