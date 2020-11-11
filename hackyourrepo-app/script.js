@@ -90,7 +90,7 @@ function main() {
   // creating a table and putting repositories info inside it
   //I would love to make it that once page loads, we already see filled table with info from first repo(alumni) but everytime I try to call the function, I get errors
   function addRepoInfo(repoInfo) {
-    selectMenu.addEventListener('click', () => {
+    selectMenu.addEventListener('change', () => {
       for (const property of repoInfo) {
         if (property.name === selectMenu.value) {
           table.innerHTML = `
