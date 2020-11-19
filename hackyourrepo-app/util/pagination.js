@@ -6,17 +6,17 @@ export function paginationButton(page, items) {
   let button = document.createElement('button');
   button.innerText = page;
 
-  if (currentPage === page) button.classList.add('active');
+  if (currentPage === page) {
+    button.classList.add('active');
+  }
   button.addEventListener('click', () => {
     displayContributors(items, rows, page);
     let current_btn = document.querySelector('.pageButton button.active');
     current_btn.classList.remove('active');
     button.classList.add('active');
   });
-
   return button;
 }
-
 
 //appends pagination buttons to the page, creates needed amount of buttons(1 button is created per 5)
 export function appendPagButton(items, rowsPerPage) {

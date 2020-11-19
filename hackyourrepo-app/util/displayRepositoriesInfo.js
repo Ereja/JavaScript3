@@ -5,34 +5,31 @@ export function addRepoInfo() {
   fetchData(
     'https://api.github.com/orgs/HackYourFuture/repos?per_page=100',
   ).then(repoInfo => {
-    for (const property of repoInfo) {
-      if (property.name === select.value) {
-        table.innerHTML = `
+    const repository = repoInfo.find(repo => repo.name === select.value);
+    table.innerHTML = `
             <tr>
             <th>Repository :</th>
-            <td><a href="${property.svn_url}" target="_blank" >${
-          property.name
-        }</a></td>
+            <td>
+            <a
+            href="${repository.svn_url}"
+            target="_blank">
+            ${repository.name}
+            </a>
+            </td>
             </tr>
             <tr>
             <th>Description :</th>
-            <td>${
-              property.description === null
-                ? (property.description = '')
-                : property.description
-            }
+            <td>${(repository.description = null ?? '')}
             </td>
             </tr>
             <tr>
             <th>Forks :</th>
-            <td>${property.forks}</td>
+            <td>${repository.forks}</td>
             </tr>
             <tr>
             <th>Updated :</th>
-            <td>${property.updated_at.replace(/[ tz]/gi, ' ')}</td>
+            <td>${repository.updated_at.replace(/[ tz]/gi, ' ')}</td>
             </tr>
             `;
-      }
-    }
   });
 }
