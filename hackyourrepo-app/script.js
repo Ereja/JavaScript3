@@ -5,9 +5,9 @@ import { fetchContributors } from './util/fetchContributors.js';
 
 //Variables for pagination
 //page we are on
-export let currentPage = 1;
+export const currentPage = 1;
 //number of items to be displayed per page
-export let rows = 5;
+export const rows = 5;
 
 function main() {
   createDOMElements();
@@ -22,6 +22,4 @@ function main() {
   });
 }
 
-window.onload = () => {
-  main();
-};
+window.onload = main;

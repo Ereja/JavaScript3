@@ -9,9 +9,9 @@ export function displayContributors(contributorsData, rowsPerPage, page) {
   divForContr.innerHTML = '';
   page--;
 
-  let start = rowsPerPage * page;
-  let end = start + rowsPerPage;
-  let paginatedContributors = contributorsData.slice(start, end);
+  const start = rowsPerPage * page;
+  const end = start + rowsPerPage;
+  const paginatedContributors = contributorsData.slice(start, end);
 
   paginatedContributors.forEach(contributor => {
     divForContr.innerHTML += `
