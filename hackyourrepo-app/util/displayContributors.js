@@ -1,4 +1,4 @@
-import { appendPagButton } from './appendPaginationButton.js';
+import { appendPagButton } from './pagination.js';
 
 
 //displays 5 contributors per page
