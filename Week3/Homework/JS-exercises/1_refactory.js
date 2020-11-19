@@ -18,7 +18,6 @@ async function getData2(url) {
   try {
     const response = await fetch(url);
     const data = console.log(await response.json());
-    return data;
   } catch (error) {
     console.log(error);
   }
@@ -28,7 +27,7 @@ getData2('https://randomfox.ca/floof/');
 //now sure if we had to blindly follow given code and return json as "native code" or add brackets, to make it properly functioning?
 
 // Exercise B
-const arrayOfWords = ['cucumber', 'tomatos', 'avocado'];
+const arrayOfWords = ['cucumber', 'tomatos', 'avocado', 34];
 
 const makeAllCaps = array => {
   return new Promise((resolve, reject) => {
@@ -51,13 +50,21 @@ makeAllCaps(arrayOfWords)
 
 async function capitalise(array) {
   try {
-    const result = await makeAllCaps(array);
-    console.log(result);
+    let words = await array.map(word => {
+      if (typeof word === 'string') {
+        return word.toUpperCase();
+      } else {
+        throw new Error('Not all items in the array are strings!');
+      }
+    });
+    return words;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
-capitalise(arrayOfWords);
+capitalise(arrayOfWords)
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
 
 //left the given functions to have as a visual reference for myself

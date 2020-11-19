@@ -25,7 +25,6 @@ async function getQuiz() {
     return 'An error has occured';
   }
 }
-getQuiz();
 
 //helper function for decoding html codes
 function decodeHtml(html) {
@@ -63,4 +62,5 @@ function appendToDOM() {
     });
   });
 }
-appendToDOM();
+
+window.onload = appendToDOM;

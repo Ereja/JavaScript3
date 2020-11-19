@@ -21,6 +21,12 @@ class Mammal {
     this.age = age;
     this.location = location;
   }
+
+  details() {
+    console.log(
+      `${this.name} is ${this.age} years old. ${this.name} lives in ${this.location}.`,
+    );
+  }
 }
 
 class Human extends Mammal {
@@ -54,7 +60,7 @@ class Human extends Mammal {
     );
   }
 
-  biography() {
+  details() {
     console.log(
       `${this.name} is ${this.age} years old. ${this.name} lives in ${this.location}. ${this.name} has a ${this.spouse}, ${this.children} children and a ${this.pets}. ${this.name} works as a ${this.occupation}.`,
     );
@@ -82,23 +88,23 @@ class Horse extends Mammal {
   }
 }
 
-//abdulkareem has a lot of properties, to make it more readable assigned seperately for readability
-const abdulkareem = new Human('Abdulkareem');
-abdulkareem.age = 35;
-abdulkareem.location = 'Riyadh';
-abdulkareem.spouse = 'wife';
-abdulkareem.children = 3;
-abdulkareem.pets = 'horse';
-abdulkareem.likes = ['dates', 'water pipe'];
-abdulkareem.occupation = 'construction worker';
-abdulkareem.workActivities = 'building houses';
+const abdulkareem = new Human(
+  'Abdulkareem',
+  35,
+  'Riyadh',
+  'wife',
+  3,
+  'horse',
+  ['dates', 'water pipe'],
+  'construction worker',
+  'building houses',
+);
 
 //methods
 abdulkareem.likesTo();
 abdulkareem.work();
-abdulkareem.biography();
+abdulkareem.details();
 
-//since adel has only 4 properties, it is not too confusing to create new horse object like this:
 const adel = new Horse('Adel', 15, 'Riyadh', 'brown');
 adel.eatGrass();
 adel.transportMaterials();
