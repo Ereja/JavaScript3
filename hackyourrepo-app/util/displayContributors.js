@@ -8,7 +8,6 @@ export function displayContributors(contributorsData, rowsPerPage, page) {
   //making sure that with each click on select menu, new contributors being generated and not stacked on top of each other
   divForContr.innerHTML = '';
   page--;
-
   const start = rowsPerPage * page;
   const end = start + rowsPerPage;
   const paginatedContributors = contributorsData.slice(start, end);

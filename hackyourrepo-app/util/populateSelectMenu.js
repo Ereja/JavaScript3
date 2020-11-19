@@ -13,5 +13,5 @@ export function addSelectOptions() {
         select.appendChild(selectOption);
         selectOption.innerText = title.name;
       });
-  })
+  });
 }

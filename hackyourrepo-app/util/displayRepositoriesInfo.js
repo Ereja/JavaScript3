@@ -1,11 +1,6 @@
-import { fetchData } from './fetchData.js';
-
 //After fetching data, this function will create a table to store the information about the selected repository
-export function addRepoInfo() {
-  fetchData(
-    'https://api.github.com/orgs/HackYourFuture/repos?per_page=100',
-  ).then(repoInfo => {
-    const repository = repoInfo.find(repo => repo.name === select.value);
+export function addRepoInfo(repoInfo) {
+  const repository = repoInfo.find(element => element.name === select.value);
     table.innerHTML = `
             <tr>
             <th>Repository :</th>
@@ -31,5 +26,4 @@ export function addRepoInfo() {
             <td>${repository.updated_at.replace(/[ tz]/gi, ' ')}</td>
             </tr>
             `;
-  });
-}
+  };
