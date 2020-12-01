@@ -29,7 +29,7 @@ export function createDOMElements() {
 
 
   <footer>
-  <p>HYF Repositories 2020</p>
+  <p>HYF Repositories ${new Date().getFullYear()}. &copy;Vaida</p>
   </footer>
   `;
 }

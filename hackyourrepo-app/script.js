@@ -15,7 +15,6 @@ function main() {
   createDOMElements();
   addSelectOptions();
   fetchRepositories();
-  //this is the most terrible solution ever(as soon as there appears a new repository before alumni for example "abc", this needs to be manually changed), but this is the only way I found to display contributors as soon as page loads...
   fetchContributors('alumni', rows, currentPage);
 
   select.addEventListener('change', () => {
