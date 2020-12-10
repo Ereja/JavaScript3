@@ -15,7 +15,9 @@ function main() {
   createDOMElements();
   addSelectOptions();
   fetchRepositories();
-  fetchContributors('alumni', rows, currentPage);
+  addSelectOptions().then((repoInfo) => {
+    fetchContributors(repoInfo[0].name, rows, currentPage);
+  });
 
   select.addEventListener('change', () => {
     fetchContributors(select.value, rows, currentPage);
